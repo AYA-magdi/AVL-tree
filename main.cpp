@@ -94,3 +94,48 @@ Node *insert(Node *node, int key)
 
     return node;
 }
+
+// Print tree structure with balance factor
+void printTree(Node *root, string indent = "", bool last = true, bool isRoot = true)
+{
+    if (!root)
+        return;
+
+    cout << indent;
+    if (isRoot)
+    {
+        cout << "Root-> ";
+    }
+    else if (last)
+    {
+        cout << "R----";
+        indent += "     ";
+    }
+    else
+    {
+        cout << "L----";
+        indent += "|    ";
+    }
+
+    cout << root->key << " (BF=" << getBalance(root) << ")\n";
+    printTree(root->left, indent, false, false);
+    printTree(root->right, indent, true, false);
+}
+
+// Main function
+int main()
+{
+    Node *root = nullptr;
+    int value;
+
+    cout << "Enter values to insert into AVL Tree (type -1 to stop):\n";
+    while (cin >> value && value != -1)
+    {
+        root = insert(root, value);
+        cout << "\nAVL Tree after inserting " << value << ":\n";
+        printTree(root);
+        cout << "--------------------------\n";
+    }
+
+    return 0;
+}
