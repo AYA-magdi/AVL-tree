@@ -27,3 +27,31 @@ void updateHeight(Node *n)
 {
     n->height = 1 + max(height(n->left), height(n->right));
 }
+
+// Right rotate
+Node *rotateRight(Node *y)
+{
+    Node *x = y->left;
+    Node *T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    updateHeight(y);
+    updateHeight(x);
+    return x;
+}
+
+// Left rotate
+Node *rotateLeft(Node *x)
+{
+    Node *y = x->right;
+    Node *T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    updateHeight(x);
+    updateHeight(y);
+    return y;
+}
